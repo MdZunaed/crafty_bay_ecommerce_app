@@ -1,5 +1,6 @@
-import 'package:crafty_bay/presentation/ui/screens/verify_email.dart';
-import 'package:crafty_bay/presentation/ui/utility/assets_path.dart';
+
+import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart';
+import 'package:crafty_bay/presentation/ui/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,9 +12,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void goToNextScreen() async{
+  void goToNextScreen() async {
     await Future.delayed(const Duration(seconds: 2));
-        Get.offAll(const VerifyEmail());
+    Get.offAll(const VerifyEmailScreen());
   }
 
   @override
@@ -24,17 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
           child: Column(
         children: [
-          const Spacer(),
-          Image.asset(AssetsPath.logo),
-          const Spacer(),
+          Spacer(),
+          AppLogo(),
+          Spacer(),
           CircularProgressIndicator(),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           Text("version 1.0"),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
         ],
       )),
     );
