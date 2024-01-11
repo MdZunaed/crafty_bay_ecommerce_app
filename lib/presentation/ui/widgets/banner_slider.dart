@@ -18,10 +18,11 @@ class _BannerSliderState extends State<BannerSlider> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 150,viewportFraction: 0.9,
-              onPageChanged: (index, reason){
-            currentIndex.value = index;
-          }),
+              height: 150,
+              viewportFraction: 0.9,
+              onPageChanged: (index, reason) {
+                currentIndex.value = index;
+              }),
           items: [1, 2, 3, 4, 5].map((i) {
             return Builder(
               builder: (BuildContext context) {
@@ -32,7 +33,7 @@ class _BannerSliderState extends State<BannerSlider> {
                         BoxDecoration(color: AppColors.primaryColor, borderRadius: BorderRadius.circular(12)),
                     child: Text(
                       'text $i',
-                      style: TextStyle(fontSize: 16.0),
+                      style: const TextStyle(fontSize: 16.0),
                     ));
               },
             );
@@ -40,24 +41,25 @@ class _BannerSliderState extends State<BannerSlider> {
         ),
         const SizedBox(height: 6),
         ValueListenableBuilder(
-          valueListenable: currentIndex,
-          builder: (context, index, _) {
-            return Row(mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int i = 0; i < 5; i++)
-                  Container(
-                    height: 12,
-                    width: 12,
-                    margin:const EdgeInsets.all(2),
-                    decoration: BoxDecoration(shape: BoxShape.circle,
-                      color:i==index? AppColors.primaryColor: Colors.transparent,
-                      border: Border.all(color: i==index? AppColors.primaryColor: Colors.grey),
-                    ),
-                  )
-              ],
-            );
-          }
-        )
+            valueListenable: currentIndex,
+            builder: (context, index, _) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < 5; i++)
+                    Container(
+                      height: 12,
+                      width: 12,
+                      margin: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: i == index ? AppColors.primaryColor : Colors.transparent,
+                        border: Border.all(color: i == index ? AppColors.primaryColor : Colors.grey),
+                      ),
+                    )
+                ],
+              );
+            })
       ],
     );
   }

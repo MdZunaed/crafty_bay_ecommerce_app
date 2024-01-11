@@ -1,4 +1,4 @@
-
+import 'package:crafty_bay/presentation/ui/screens/main_nav_screen.dart';
 import 'package:crafty_bay/presentation/ui/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,29 +19,25 @@ class CompleteProfileScreen extends StatelessWidget {
             const AppLogo(width: 100),
             const SizedBox(height: 10),
             Text("Complete Profile", style: Theme.of(context).textTheme.titleLarge),
-            Text("Get started with us with your details",
-                style: Theme.of(context).textTheme.bodySmall),
+            Text("Get started with us with your details", style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 20),
-            TextFormField(
-              decoration: const InputDecoration(hintText: "First Name")),
+            TextFormField(decoration: const InputDecoration(hintText: "First Name")),
             const SizedBox(height: 14),
-            TextFormField(
-                decoration: const InputDecoration(hintText: "Last Name")),
+            TextFormField(decoration: const InputDecoration(hintText: "Last Name")),
             const SizedBox(height: 14),
-            TextFormField(
-                decoration: const InputDecoration(hintText: "Mobile")),
+            TextFormField(decoration: const InputDecoration(hintText: "Mobile")),
             const SizedBox(height: 14),
-            TextFormField(
-                decoration: const InputDecoration(hintText: "City")),
+            TextFormField(decoration: const InputDecoration(hintText: "City")),
             const SizedBox(height: 14),
-            TextFormField(maxLines: 3,
-                decoration: const InputDecoration(hintText: "Shipping Address")),
+            TextFormField(maxLines: 3, decoration: const InputDecoration(hintText: "Shipping Address")),
             const SizedBox(height: 20),
             SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                    }, child: const Text("Complete"))),
+                      Get.offAll(const MainNavScreen());
+                    },
+                    child: const Text("Complete"))),
           ],
         ),
       ),
