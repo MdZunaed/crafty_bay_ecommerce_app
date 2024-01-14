@@ -1,3 +1,4 @@
+import 'package:crafty_bay/presentation/ui/widgets/item_counter.dart';
 import 'package:flutter/material.dart';
 
 import '../utility/app_colors.dart';
@@ -16,6 +17,7 @@ class _CartItemCardState extends State<CartItemCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       color: Colors.white,
       surfaceTintColor: Colors.white,
       elevation: 2,
@@ -77,30 +79,7 @@ class _CartItemCardState extends State<CartItemCard> {
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.primaryColor),
                       ),
-                      Row(
-                        children: [
-                          FilledIconButton(
-                            icon: Icons.remove,
-                            color: AppColors.primaryColor.withOpacity(0.6),
-                            shadowColor: Colors.transparent,
-                            onTap: () {
-                              noOfItem.value--;
-                            },
-                          ),
-                          ValueListenableBuilder(
-                            valueListenable: noOfItem,
-                            builder: (context, value, _) {
-                              return Text(value.toString());
-                            },
-                          ),
-                          FilledIconButton(
-                            icon: Icons.add,
-                            onTap: () {
-                              noOfItem.value++;
-                            },
-                          ),
-                        ],
-                      )
+                      ItemCounter(),
                     ],
                   )
                 ],

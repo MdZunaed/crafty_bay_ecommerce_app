@@ -27,39 +27,43 @@ class _BannerSliderState extends State<BannerSlider> {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                    decoration:
-                        BoxDecoration(color: AppColors.primaryColor, borderRadius: BorderRadius.circular(12)),
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration:
+                      BoxDecoration(color: AppColors.primaryColor, borderRadius: BorderRadius.circular(12)),
+                  child: Center(
                     child: Text(
                       'text $i',
                       style: const TextStyle(fontSize: 16.0),
-                    ));
+                    ),
+                  ),
+                );
               },
             );
           }).toList(),
         ),
         const SizedBox(height: 6),
         ValueListenableBuilder(
-            valueListenable: currentIndex,
-            builder: (context, index, _) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (int i = 0; i < 5; i++)
-                    Container(
-                      height: 12,
-                      width: 12,
-                      margin: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: i == index ? AppColors.primaryColor : Colors.transparent,
-                        border: Border.all(color: i == index ? AppColors.primaryColor : Colors.grey),
-                      ),
-                    )
-                ],
-              );
-            })
+          valueListenable: currentIndex,
+          builder: (context, index, _) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int i = 0; i < 5; i++)
+                  Container(
+                    height: 12,
+                    width: 12,
+                    margin: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: i == index ? AppColors.primaryColor : Colors.transparent,
+                      border: Border.all(color: i == index ? AppColors.primaryColor : Colors.grey),
+                    ),
+                  )
+              ],
+            );
+          },
+        )
       ],
     );
   }

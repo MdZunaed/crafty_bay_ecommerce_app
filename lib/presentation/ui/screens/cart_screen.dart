@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../state_holders/nav_controller.dart';
+import '../widgets/bottom_container.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -26,19 +27,14 @@ class CartScreen extends StatelessWidget {
         body: Column(
           children: [
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Expanded(
-                  child: ListView.separated(
-                    itemCount: 6,
-                    separatorBuilder: (c, i) {
-                      return const SizedBox(height: 5);
-                    },
-                    itemBuilder: (context, index) {
-                      return const CartItemCard();
-                    },
-                  ),
-                ),
+              child: ListView.separated(
+                itemCount: 6,
+                separatorBuilder: (c, i) {
+                  return const SizedBox(height: 5);
+                },
+                itemBuilder: (context, index) {
+                  return const CartItemCard();
+                },
               ),
             ),
             checkoutContainer(),
@@ -48,13 +44,8 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  Container checkoutContainer() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          color: AppColors.primaryColor.withOpacity(0.15),
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20))),
+  BottomContainer checkoutContainer() {
+    return BottomContainer(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

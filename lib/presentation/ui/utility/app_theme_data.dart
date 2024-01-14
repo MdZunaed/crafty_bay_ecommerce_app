@@ -28,17 +28,13 @@ class AppThemeData {
         borderRadius: BorderRadius.circular(12),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.primaryColor),
-        borderRadius: BorderRadius.circular(12),
-      ),
+          borderSide: const BorderSide(color: AppColors.primaryColor),
+          borderRadius: BorderRadius.circular(12)),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
-        borderRadius: BorderRadius.circular(12),
-      ),
+          borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
+          borderRadius: BorderRadius.circular(12)),
       errorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.red),
-        borderRadius: BorderRadius.circular(12),
-      ),
+          borderSide: const BorderSide(color: Colors.red), borderRadius: BorderRadius.circular(12)),
     ),
     // primarySwatch:
     //     MaterialColor(AppColors.primaryColor.value, AppColors.colorSwatch),

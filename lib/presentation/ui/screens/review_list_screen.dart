@@ -1,10 +1,9 @@
 import 'package:crafty_bay/presentation/ui/screens/add_review_screen.dart';
-import 'package:crafty_bay/presentation/ui/widgets/circle_icon_button.dart';
+import 'package:crafty_bay/presentation/ui/widgets/bottom_container.dart';
+import 'package:crafty_bay/presentation/ui/widgets/home/circle_icon_button.dart';
 import 'package:crafty_bay/presentation/ui/widgets/filled_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../utility/app_colors.dart';
 
 class ReviewListScreen extends StatelessWidget {
   const ReviewListScreen({super.key});
@@ -16,41 +15,39 @@ class ReviewListScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Expanded(
-                child: ListView.separated(
-                  itemCount: 6,
-                  separatorBuilder: (c, i) {
-                    return const SizedBox(height: 3);
-                  },
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                CircleIconButton(icon: Icons.person_outline),
-                                SizedBox(width: 5),
-                                Text(
-                                  "Uvuvuye vuye vuye",
-                                  style: TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey.shade800),
-                                )
-                              ],
-                            ),
-                            Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
-                              style: TextStyle(color: Colors.black54),
-                            )
-                          ],
-                        ),
+            child: Expanded(
+              child: ListView.separated(
+                itemCount: 6,
+                separatorBuilder: (c, i) {
+                  return const SizedBox(height: 3);
+                },
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 11, vertical: 2),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              const CircleIconButton(icon: Icons.person_outline),
+                              const SizedBox(width: 5),
+                              Text(
+                                "Uvuvuye vuye vuye",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey.shade800),
+                              )
+                            ],
+                          ),
+                          const Text(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+                            style: TextStyle(color: Colors.black54),
+                          )
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -60,13 +57,8 @@ class ReviewListScreen extends StatelessWidget {
     );
   }
 
-  Container addReviewContainer() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          color: AppColors.primaryColor.withOpacity(0.15),
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20))),
+  BottomContainer addReviewContainer() {
+    return BottomContainer(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -75,8 +67,8 @@ class ReviewListScreen extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey.shade800),
           ),
           FilledIconButton(
-            height: 50,
-            width: 50,
+            height: 52,
+            width: 52,
             borderRadius: BorderRadius.circular(30),
             icon: Icons.add,
             onTap: () {

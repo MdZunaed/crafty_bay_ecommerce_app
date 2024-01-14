@@ -1,15 +1,21 @@
+import 'package:crafty_bay/presentation/ui/screens/product_details_screen.dart';
 import 'package:crafty_bay/presentation/ui/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utility/app_colors.dart';
-import '../utility/assets_path.dart';
 
 class ProductItemCard extends StatelessWidget {
-  const ProductItemCard({super.key});
+  final VoidCallback? onTap;
+  const ProductItemCard({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap ??
+          () {
+            Get.to(const ProductDetailsScreen());
+          },
       child: SizedBox(
         //height: 180,
         width: 150,
