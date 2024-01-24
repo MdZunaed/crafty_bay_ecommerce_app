@@ -3,7 +3,7 @@ import 'package:crafty_bay/presentation/ui/widgets/cart_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../state_holders/nav_controller.dart';
+import '../../state_holders/bottom_nav_controller.dart';
 import '../widgets/bottom_container.dart';
 
 class CartScreen extends StatelessWidget {

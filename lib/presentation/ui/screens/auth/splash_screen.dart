@@ -1,5 +1,6 @@
-
+import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart';
+import 'package:crafty_bay/presentation/ui/screens/bottom_nav_screen.dart';
 import 'package:crafty_bay/presentation/ui/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,8 +14,13 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void goToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 2));
-    Get.offAll(const VerifyEmailScreen());
+    await Future.delayed(const Duration(seconds: 1));
+    final bool isLoggedIn = await Get.find<AuthController>().isLoggedIn();
+    if (isLoggedIn) {
+      Get.offAll(const BottomNavScreen());
+    } else {
+      Get.offAll(const VerifyEmailScreen());
+    }
   }
 
   @override

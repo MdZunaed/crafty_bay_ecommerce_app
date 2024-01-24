@@ -2,7 +2,7 @@ import 'package:crafty_bay/presentation/ui/widgets/product_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../state_holders/nav_controller.dart';
+import '../../state_holders/bottom_nav_controller.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});

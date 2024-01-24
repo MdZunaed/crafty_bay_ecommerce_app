@@ -1,4 +1,6 @@
-import 'package:crafty_bay/presentation/state_holders/nav_controller.dart';
+import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
+import 'package:crafty_bay/presentation/state_holders/bottom_nav_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/product_list_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/review_list_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/assets_path.dart';
@@ -99,7 +101,12 @@ class HomeScreen extends StatelessWidget {
       actions: [
         CircleIconButton(icon: Icons.notifications_active_outlined, onTap: () {}),
         CircleIconButton(icon: Icons.call_outlined, onTap: () {}),
-        CircleIconButton(icon: Icons.person_outline, onTap: () {}),
+        CircleIconButton(
+            icon: Icons.logout,
+            onTap: () async {
+              await Get.find<AuthController>().clearAuthData();
+              Get.offAll(() => const VerifyEmailScreen());
+            }),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../state_holders/nav_controller.dart';
+import '../../state_holders/bottom_nav_controller.dart';
 import '../widgets/product_item_card.dart';
 
 class ProductListScreen extends StatelessWidget {
