@@ -16,6 +16,7 @@ class _SizeSelectorState extends State<SizeSelector> {
   @override
   void initState() {
     selectedSize = widget.sizes.first;
+    widget.onChange(selectedSize);
     super.initState();
   }
 
@@ -30,21 +31,16 @@ class _SizeSelectorState extends State<SizeSelector> {
                 widget.onChange(s);
                 setState(() {});
               },
-              borderRadius: BorderRadius.circular(20),
-              child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: CircleAvatar(
-                  radius: 17,
-                  backgroundColor: selectedSize == s ? AppColors.primaryColor : Colors.black,
-                  child: CircleAvatar(
-                    radius: 16,
-                    backgroundColor: selectedSize == s ? AppColors.primaryColor : Colors.white,
-                    child: Text(
-                      s,
-                      style: TextStyle(fontSize: 13, color: selectedSize == s ? Colors.white : Colors.black),
-                    ),
-                  ),
-                ),
+              borderRadius: BorderRadius.circular(15),
+              child: Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                    color: selectedSize == s ? AppColors.primaryColor : Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: selectedSize == s ? AppColors.primaryColor : Colors.black)),
+                child: Center(
+                    child: Text(s, style: TextStyle(color: selectedSize == s ? Colors.white : Colors.black))),
               ),
             ),
           )

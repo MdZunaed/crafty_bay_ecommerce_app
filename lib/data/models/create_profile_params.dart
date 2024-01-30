@@ -1,5 +1,4 @@
 class CreateProfileParams {
-  final String token;
   final String firstName;
   final String lastName;
   final String mobile;
@@ -7,8 +6,7 @@ class CreateProfileParams {
   final String shippingAddress;
 
   CreateProfileParams(
-      {required this.token,
-      required this.firstName,
+      {required this.firstName,
       required this.lastName,
       required this.mobile,
       required this.city,

@@ -33,7 +33,7 @@ class WishlistScreen extends StatelessWidget {
                   crossAxisCount: 3, mainAxisSpacing: 8, crossAxisSpacing: 4, childAspectRatio: 0.80),
               itemCount: 20,
               itemBuilder: (context, index) {
-                return const FittedBox(child: ProductItemCard());
+                //return const FittedBox(child: ProductItemCard());
               }),
         ),
       ),

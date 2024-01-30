@@ -1,3 +1,4 @@
+import 'package:crafty_bay/data/models/create_profile_params.dart';
 import 'package:crafty_bay/data/models/profile.dart';
 import 'package:crafty_bay/presentation/state_holders/complete_profile_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/bottom_nav_screen.dart';
@@ -78,13 +79,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
                               String token = Get.find<VerifyOtpController>().token;
-                              Profile profile = Profile(
+                              CreateProfileParams params = CreateProfileParams(
                                   firstName: firstNameTEController.text.trim(),
                                   lastName: lastNameTEController.text.trim(),
                                   mobile: mobileTEController.text.trim(),
                                   city: cityTEController.text.trim(),
                                   shippingAddress: addressTEController.text.trim());
-                              final response = await controller.createProfileData(token, profile);
+                              final response = await controller.createProfileData(token, params);
                               if (response) {
                                 Get.offAll(() => const BottomNavScreen());
                               } else {
