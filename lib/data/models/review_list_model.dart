@@ -1,5 +1,3 @@
-import 'profile.dart';
-
 class ReviewListModel {
   String? msg;
   List<Review>? reviewList;
@@ -19,7 +17,7 @@ class ReviewListModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['msg'] = msg;
-    if (reviewList != null) {
+    if (this.reviewList != null) {
       data['data'] = reviewList!.map((v) => v.toJson()).toList();
     }
     return data;
@@ -29,36 +27,65 @@ class ReviewListModel {
 class Review {
   int? id;
   String? description;
-  String? email;
+  String? rating;
+  int? customerId;
   int? productId;
   String? createdAt;
   String? updatedAt;
-  Profile? profile;
+  ReviewProfile? profile;
 
   Review(
-      {this.id, this.description, this.email, this.productId, this.createdAt, this.updatedAt, this.profile});
+      {this.id,
+      this.description,
+      this.rating,
+      this.customerId,
+      this.productId,
+      this.createdAt,
+      this.updatedAt,
+      this.profile});
 
   Review.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     description = json['description'];
-    email = json['email'];
+    rating = json['rating'];
+    customerId = json['customer_id'];
     productId = json['product_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    profile = json['profile'] != null ? Profile.fromJson(json['profile']) : null;
+    profile = json['profile'] != null ? ReviewProfile.fromJson(json['profile']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = this.id;
+    data['description'] = this.description;
+    data['rating'] = this.rating;
+    data['customer_id'] = this.customerId;
+    data['product_id'] = this.productId;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    if (this.profile != null) {
+      data['profile'] = this.profile!.toJson();
+    }
+    return data;
+  }
+}
+
+class ReviewProfile {
+  int? id;
+  String? cusName;
+
+  ReviewProfile({this.id, this.cusName});
+
+  ReviewProfile.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    cusName = json['cus_name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['description'] = description;
-    data['email'] = email;
-    data['product_id'] = productId;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    if (profile != null) {
-      data['profile'] = profile!.toJson();
-    }
+    data['cus_name'] = cusName;
     return data;
   }
 }

@@ -21,10 +21,10 @@ class ReadProfileDataController extends GetxController {
     _inProgress = false;
     if (response.isSuccess) {
       final profileData = response.responseData['data'];
-      if (profileData.isEmpty) {
+      if (profileData == null) {
         _isProfileComplete = false;
       } else {
-        _profile = Profile.fromJson(profileData[0]);
+        _profile = await Profile.fromJson(profileData);
         _isProfileComplete = true;
       }
       update();

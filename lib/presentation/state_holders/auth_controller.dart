@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,7 +8,7 @@ import '../../data/models/profile.dart';
 
 class AuthController extends GetxController {
   static String? token;
-  static Profile? profile;
+  Profile? profile;
   Future<void> saveUserDetails(String t, Profile p) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.setString('token', t);
@@ -19,6 +20,7 @@ class AuthController extends GetxController {
   Future<void> initialize() async {
     token = await _getToken();
     profile = await _getProfile();
+    print(token);
   }
 
   Future<bool> isLoggedIn() async {
@@ -43,8 +45,13 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> clearAuthData() async {
+  static Future<void> clearAuthData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.clear();
+    token == null;
+  }
+
+  static Future<void> goToLogin() async {
+    Get.to(() => const VerifyEmailScreen());
   }
 }

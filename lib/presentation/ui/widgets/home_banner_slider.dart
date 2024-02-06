@@ -18,12 +18,13 @@ class _BannerSliderState extends State<BannerSlider> {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 150,
-              viewportFraction: 0.92,
+              height: 135,
+              viewportFraction: 0.93,
               onPageChanged: (index, reason) {
                 currentIndex.value = index;
               }),
@@ -31,33 +32,50 @@ class _BannerSliderState extends State<BannerSlider> {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: screenWidth,
                   margin: const EdgeInsets.symmetric(horizontal: 5.0),
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.circular(12),
-                    //image: DecorationImage(image: NetworkImage(banner.image ?? '')),
+                    image: DecorationImage(image: NetworkImage(banner.image ?? ''), fit: BoxFit.cover),
                   ),
                   child: Row(
                     children: [
-                      Expanded(
+                      SizedBox(
+                        width: screenWidth / 2.2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(banner.title ?? '',
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                            Text(banner.shortDes ?? '',
-                                style: const TextStyle(color: Colors.white, fontSize: 12)),
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                            Text(banner.shortDes ?? '', style: const TextStyle(fontSize: 12)),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(child: Image.network(banner.image ?? '')),
                     ],
                   ),
+
+                  // child: Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: Column(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           Text(banner.title ?? '',
+                  //               style: const TextStyle(
+                  //                   color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                  //           Text(banner.shortDes ?? '',
+                  //               style: const TextStyle(color: Colors.white, fontSize: 12)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     const SizedBox(width: 10),
+                  //     Expanded(child: Image.network(banner.image ?? '')),
+                  //   ],
+                  // ),
                 );
               },
             );

@@ -30,7 +30,7 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(color: Colors.grey),
-                  child: Image.network(url),
+                  child: Image.network(url, fit: BoxFit.fill),
                 );
               },
             );

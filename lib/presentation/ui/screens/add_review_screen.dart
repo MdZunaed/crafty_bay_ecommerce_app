@@ -18,6 +18,8 @@ class AddReviewScreen extends StatefulWidget {
 class _AddReviewScreenState extends State<AddReviewScreen> {
   TextEditingController reviewTEController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
+  int selectedRating = 4;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,12 +30,11 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         child: Form(
           key: formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //TextFormField(decoration: const InputDecoration(hintText: "First Name")),
-              //const SizedBox(height: 14),
-              //TextFormField(decoration: const InputDecoration(hintText: "Last Name")),
-              //const SizedBox(height: 14),
+              Text("Choose your rating", style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+              ratingCard(),
+              const SizedBox(height: 10),
               TextFormField(
                   validator: (value) {
                     if (value?.isEmpty ?? true) {
@@ -46,35 +47,67 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   decoration: const InputDecoration(hintText: "Write review")),
               const SizedBox(height: 20),
               SizedBox(
-                  width: double.infinity,
-                  child: GetBuilder<AddReviewController>(builder: (controller) {
+                width: double.infinity,
+                child: GetBuilder<AddReviewController>(
+                  builder: (controller) {
                     return Visibility(
                       visible: controller.inProgress == false,
                       replacement: const CenterProgressIndicator(),
                       child: ElevatedButton(
-                          onPressed: () async {
-                            if (formKey.currentState!.validate()) {
-                              if (AuthController.token != null) {
-                                final result = await controller.addNewReview(
-                                    widget.productId, reviewTEController.text.trim());
-                                if (result) {
-                                  Get.find<ReviewListController>().getReviewList(widget.productId);
-                                  UiHelper.showSnackBar("Success", "Review added successfully");
-                                } else {
-                                  UiHelper.showSnackBar("Failed", controller.errorMessage);
-                                }
-                              } else {
-                                Get.to(const VerifyEmailScreen());
-                              }
-                            }
-                          },
-                          child: const Text("Submit")),
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            addNewReview(controller);
+                          }
+                        },
+                        child: const Text("Submit"),
+                      ),
                     );
-                  })),
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Card ratingCard() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(5, (index) {
+            int rating = index + 1;
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedRating = rating;
+                });
+              },
+              child: Row(children: [
+                Icon(Icons.star, size: 30, color: rating <= selectedRating ? Colors.amber : Colors.black),
+              ]),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
+  Future<void> addNewReview(AddReviewController controller) async {
+    if (AuthController.token != null) {
+      final result =
+          await controller.addNewReview(widget.productId, reviewTEController.text.trim(), selectedRating);
+      if (result) {
+        Get.find<ReviewListController>().getReviewList(widget.productId);
+        UiHelper.showSnackBar("Success", "Review added successfully");
+      } else {
+        UiHelper.showSnackBar("Failed", controller.errorMessage);
+      }
+    } else {
+      Get.to(const VerifyEmailScreen());
+    }
   }
 }

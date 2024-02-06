@@ -1,6 +1,7 @@
 import 'package:crafty_bay/data/models/create_profile_params.dart';
 import 'package:crafty_bay/data/utility/urls.dart';
 import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
+import 'package:crafty_bay/presentation/state_holders/verify_otp_controller.dart';
 import 'package:get/get.dart';
 import '../../data/models/profile.dart';
 import '../../data/models/response_data.dart';
@@ -13,13 +14,17 @@ class CompleteProfileController extends GetxController {
   String get errorMessage => _errorMessage;
   Profile _profile = Profile();
   Profile get profile => _profile;
-  Future<bool> createProfileData(String token, CreateProfileParams params) async {
+  Future<bool> createProfileData(CreateProfileParams params) async {
     _inProgress = true;
     update();
+    final String token = Get.find<VerifyOtpController>().token;
     final ResponseData response =
         await NetworkCaller().postRequest(Urls.completeProfile, token: token, body: params.toJson());
     _inProgress = false;
     if (response.isSuccess) {
+      final profileData = response.responseData['data'];
+
+      _profile = Profile.fromJson(profileData);
       await Get.find<AuthController>().saveUserDetails(token, _profile);
       update();
       return true;

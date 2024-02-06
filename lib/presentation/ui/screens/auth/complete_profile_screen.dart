@@ -1,5 +1,4 @@
 import 'package:crafty_bay/data/models/create_profile_params.dart';
-import 'package:crafty_bay/data/models/profile.dart';
 import 'package:crafty_bay/presentation/state_holders/complete_profile_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/bottom_nav_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/get_snackbar.dart';
@@ -18,10 +17,10 @@ class CompleteProfileScreen extends StatefulWidget {
 }
 
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
-  final TextEditingController firstNameTEController = TextEditingController();
-  final TextEditingController lastNameTEController = TextEditingController();
+  final TextEditingController nameTEController = TextEditingController();
   final TextEditingController mobileTEController = TextEditingController();
   final TextEditingController cityTEController = TextEditingController();
+  final TextEditingController postCodeTEController = TextEditingController();
   final TextEditingController addressTEController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
 
@@ -43,25 +42,26 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               Text("Get started with us with your details", style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 20),
               TextFormField(
-                  controller: firstNameTEController,
+                  controller: nameTEController,
                   validator: validator,
-                  decoration: const InputDecoration(hintText: "First Name")),
-              const SizedBox(height: 14),
-              TextFormField(
-                  controller: lastNameTEController,
-                  validator: validator,
-                  decoration: const InputDecoration(hintText: "Last Name")),
+                  decoration: const InputDecoration(hintText: "Full Name")),
               const SizedBox(height: 14),
               TextFormField(
                   controller: mobileTEController,
                   validator: validator,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "Mobile")),
+                  decoration: const InputDecoration(hintText: "Mobile no")),
               const SizedBox(height: 14),
               TextFormField(
                   controller: cityTEController,
                   validator: validator,
                   decoration: const InputDecoration(hintText: "City")),
+              const SizedBox(height: 14),
+              TextFormField(
+                  controller: postCodeTEController,
+                  validator: validator,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "Post code")),
               const SizedBox(height: 14),
               TextFormField(
                   controller: addressTEController,
@@ -78,14 +78,24 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       child: ElevatedButton(
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              String token = Get.find<VerifyOtpController>().token;
                               CreateProfileParams params = CreateProfileParams(
-                                  firstName: firstNameTEController.text.trim(),
-                                  lastName: lastNameTEController.text.trim(),
-                                  mobile: mobileTEController.text.trim(),
-                                  city: cityTEController.text.trim(),
-                                  shippingAddress: addressTEController.text.trim());
-                              final response = await controller.createProfileData(token, params);
+                                cusName: nameTEController.text.trim(),
+                                cusPhone: mobileTEController.text.trim(),
+                                cusCity: cityTEController.text.trim(),
+                                cusPostcode: postCodeTEController.text.trim(),
+                                cusAdd: addressTEController.text.trim(),
+                                cusFax: mobileTEController.text.trim(),
+                                cusState: "Dhaka",
+                                cusCountry: "Bangladesh",
+                                shipName: nameTEController.text.trim(),
+                                shipPhone: mobileTEController.text.trim(),
+                                shipCity: cityTEController.text.trim(),
+                                shipPostcode: postCodeTEController.text.trim(),
+                                shipAdd: addressTEController.text.trim(),
+                                shipState: "Dhaka",
+                                shipCountry: "Bangladesh",
+                              );
+                              final response = await controller.createProfileData(params);
                               if (response) {
                                 Get.offAll(() => const BottomNavScreen());
                               } else {
@@ -114,8 +124,8 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   @override
   void dispose() {
     super.dispose();
-    firstNameTEController.dispose();
-    lastNameTEController.dispose();
+    nameTEController.dispose();
+    postCodeTEController.dispose();
     mobileTEController.dispose();
     cityTEController.dispose();
     addressTEController.dispose();

@@ -2,9 +2,8 @@ import 'package:crafty_bay/presentation/state_holders/bottom_nav_controller.dart
 import 'package:crafty_bay/presentation/state_holders/category_list_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/new_producr_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/popular_product_controller.dart';
-import 'package:crafty_bay/presentation/state_holders/product_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/special_product_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/cart_screen.dart';
+import 'package:crafty_bay/presentation/ui/screens/cart_list_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/category_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/home_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/wishlist_screen.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../state_holders/home_banner_controller.dart';
+import '../../state_holders/wishlist_controller.dart';
 
 class BottomNavScreen extends StatefulWidget {
   const BottomNavScreen({super.key});

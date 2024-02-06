@@ -20,6 +20,7 @@ class CategoryItem extends StatelessWidget {
           Card(
             elevation: 0,
             color: AppColors.primaryColor.withOpacity(0.1),
+            //color: Colors.red,
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Image.network(category.categoryImg ?? '', height: 55, width: 55),

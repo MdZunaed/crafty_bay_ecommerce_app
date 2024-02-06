@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:crafty_bay/presentation/state_holders/send_email_otp_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/verify_otp_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/auth/complete_profile.dart';
+import 'package:crafty_bay/presentation/ui/screens/auth/complete_profile_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/bottom_nav_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
 import 'package:crafty_bay/presentation/ui/utility/get_snackbar.dart';
@@ -48,7 +48,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               const AppLogo(width: 100),
               const SizedBox(height: 10),
               Text("Enter OTP Code", style: Theme.of(context).textTheme.titleLarge),
-              Text("A 4 digit OTP code has been sent", style: Theme.of(context).textTheme.bodySmall),
+              Text("A 6 digit OTP code has been sent", style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 20),
               PinCodeTextField(
                 controller: otpTEController,
@@ -59,7 +59,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                   return null;
                 },
                 appContext: context,
-                length: 4,
+                length: 6,
                 keyboardType: TextInputType.number,
                 animationType: AnimationType.fade,
                 pinTheme: PinTheme(
@@ -138,7 +138,9 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   void countTime() {
     if (time > 0) {
       time -= 1;
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 }

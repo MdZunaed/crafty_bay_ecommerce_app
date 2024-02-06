@@ -14,6 +14,7 @@ class ProductDetailsController extends GetxController {
   String get errorMessage => _errorMessage;
   ProductDetailsModel _productDetailsModel = ProductDetailsModel();
 
+  List<ProductDetailsData>? get productDetailsDataList => _productDetailsModel.productDetailsDataList;
   ProductDetailsData get productDetails => _productDetailsModel.productDetailsDataList!.first;
 
   Future<bool> getProductDetailsData(int productId) async {

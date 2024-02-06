@@ -31,13 +31,16 @@ class _SizeSelectorState extends State<SizeSelector> {
                 widget.onChange(s);
                 setState(() {});
               },
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(30),
               child: Container(
+                height: 35,
+                width: 35,
                 margin: const EdgeInsets.all(5),
-                padding: const EdgeInsets.all(6),
+                //padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                     color: selectedSize == s ? AppColors.primaryColor : Colors.white,
-                    borderRadius: BorderRadius.circular(15),
+                    shape: BoxShape.circle,
+                    //borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: selectedSize == s ? AppColors.primaryColor : Colors.black)),
                 child: Center(
                     child: Text(s, style: TextStyle(color: selectedSize == s ? Colors.white : Colors.black))),

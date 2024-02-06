@@ -45,7 +45,7 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
                       return const SizedBox(height: 3);
                     },
                     itemBuilder: (context, index) {
-                      return reviewCard(index, controller.reviewListModel.reviewList);
+                      return reviewCard(index, controller.reviewListModel.reviewList ?? []);
                     },
                   );
                 }),
@@ -58,7 +58,7 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
     );
   }
 
-  Card reviewCard(index, reviewList) {
+  Card reviewCard(index, List<Review> reviewList) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 11, vertical: 2),
       child: Padding(
@@ -69,12 +69,19 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
             Row(
               children: [
                 const CircleIconButton(icon: Icons.person_outline),
-                const SizedBox(width: 5),
-                Text("${reviewList?[index].profile?.firstName} ${reviewList?[index].profile?.lastName}",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey.shade800))
+                //const SizedBox(width: 5),
+                Text(reviewList[index].profile?.cusName ?? 'Customer Name',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey.shade800)),
+                Spacer(),
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.yellow),
+                    Text(reviewList[index].rating.toString()),
+                  ],
+                )
               ],
             ),
-            Text(reviewList?[index].description ?? '', style: const TextStyle(color: Colors.black54))
+            Text(reviewList[index].description ?? '', style: const TextStyle(color: Colors.black54))
           ],
         ),
       ),

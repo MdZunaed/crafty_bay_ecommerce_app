@@ -19,22 +19,23 @@ class VerifyOtpController extends GetxController {
     _inProgress = true;
     update();
     final ResponseData response = await NetworkCaller().getRequest(Urls.verifyOtp(email, otp));
-    _inProgress = false;
+
     if (response.isSuccess) {
       _token = response.responseData['data'];
-      await Future.delayed(const Duration(seconds: 3));
+      //await Future.delayed(const Duration(seconds: 3));
       final result = await Get.find<ReadProfileDataController>().readProfileData(token);
       if (result) {
         _shouldNavigateCompleteProfile = Get.find<ReadProfileDataController>().isProfileComplete == false;
         if (_shouldNavigateCompleteProfile == false) {
           await Get.find<AuthController>()
-              .saveUserDetails(_token, Get.find<ReadProfileDataController>().profile);
+              .saveUserDetails(token, Get.find<ReadProfileDataController>().profile);
         }
       } else {
         _errorMessage = Get.find<ReadProfileDataController>().errorMessage;
         update();
         return false;
       }
+      _inProgress = false;
       update();
       return true;
     } else {

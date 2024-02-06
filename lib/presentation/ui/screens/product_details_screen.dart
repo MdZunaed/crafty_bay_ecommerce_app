@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:crafty_bay/data/models/product_details_data.dart';
 import 'package:crafty_bay/presentation/state_holders/add_to_cart_controller.dart';
+import 'package:crafty_bay/presentation/state_holders/add_wishlist_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/product_details_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart';
@@ -13,6 +14,7 @@ import 'package:crafty_bay/presentation/ui/widgets/product_details/color_selecto
 import 'package:crafty_bay/presentation/ui/widgets/item_counter.dart';
 import 'package:crafty_bay/presentation/ui/widgets/product_details/product_image_slider.dart';
 import 'package:crafty_bay/presentation/ui/widgets/product_details/size_selector.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../utility/app_colors.dart';
@@ -29,20 +31,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Color? selectedColor;
   String? selectedSize;
-  List colors = [
-    Colors.black,
-    Colors.teal,
-    Colors.brown,
-    Colors.amber,
-    Colors.lightGreen,
-  ];
-  List sizes = [
-    "S",
-    "M",
-    "L",
-    "XL",
-    "XXL",
-  ];
+  ValueNotifier<int> noOfItems = ValueNotifier(1);
 
   @override
   void initState() {
@@ -58,6 +47,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       body: GetBuilder<ProductDetailsController>(builder: (controller) {
         if (controller.inProgress) {
           return const CenterProgressIndicator();
+        } else if (controller.productDetailsDataList!.isEmpty) {
+          return const Center(child: Text("Product not available"));
         }
         return Column(
           children: [
@@ -86,7 +77,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                             ),
                           ),
-                          const ItemCounter(),
+                          ItemCounter(
+                            initialValue: noOfItems,
+                          ),
                         ],
                       ),
                       Row(
@@ -141,19 +134,34 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Card addToWishListCard() {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      color: AppColors.primaryColor,
-      child: const Padding(
-        padding: EdgeInsets.all(3),
-        child: Icon(
-          Icons.favorite_outline,
-          size: 14,
-          color: Colors.white,
+  GetBuilder<AddToWishlistController> addToWishListCard() {
+    return GetBuilder<AddToWishlistController>(builder: (controller) {
+      if (controller.inProgress) {
+        return const CupertinoActivityIndicator(color: AppColors.primaryColor);
+      }
+      return InkWell(
+        onTap: () async {
+          final response = await controller.addToWishlist(widget.productId);
+          if (response) {
+            UiHelper.showSnackBar("Success", "Product added to wishlist");
+          } else {
+            UiHelper.showSnackBar("Success", "Add to wishlist failed, try again!");
+          }
+        },
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          color: AppColors.primaryColor,
+          child: const Padding(
+            padding: EdgeInsets.all(3),
+            child: Icon(
+              Icons.favorite_outline,
+              size: 14,
+              color: Colors.white,
+            ),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   TextStyle titleTextStyle() =>
@@ -169,7 +177,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             children: [
               const Text("Price",
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black54)),
-              Text("\$${productDetails.product?.price ?? 0}",
+              Text("৳${productDetails.product?.price ?? 0}",
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.primaryColor)),
             ],
@@ -180,11 +188,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               replacement: const CenterProgressIndicator(),
               child: FilledButton(
                 onPressed: () async {
-                  final String colorCode = colorToHexCode(selectedColor!);
+                  final String colorCode = colorToString(selectedColor!);
 
                   if (AuthController.token != null) {
-                    final response =
-                        await controller.addToCart(productDetails.productId, colorCode, selectedSize);
+                    final response = await controller.addToCart(
+                        productDetails.productId, colorCode, selectedSize, noOfItems.value);
                     if (response) {
                       UiHelper.showSnackBar("Success", "Product added to cart");
                     } else {
@@ -203,13 +211,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Color getColorFromString(String colorCode) {
-    String code = colorCode.replaceAll('#', '');
-    String hexCode = "FF$code";
-    return Color(int.parse("0x$hexCode"));
+  getColorFromString(String color) {
+    color = color.toLowerCase();
+    if (color == 'red') {
+      return Colors.red;
+    } else if (color == 'green') {
+      return Colors.green;
+    } else if (color == 'white') {
+      return Colors.white;
+    }
+    return Colors.grey;
   }
 
-  String colorToHexCode(Color colorCode) {
-    return colorCode.toString().replaceAll('Color(0xff', '#').replaceAll(')', '');
+  String colorToString(Color color) {
+    if (color == Colors.red) {
+      return 'red';
+    } else if (color == Colors.green) {
+      return 'green';
+    } else if (color == Colors.white) {
+      return 'white';
+    }
+    return 'grey';
   }
+// Color getColorFromString(String colorCode) {
+//   String code = colorCode.replaceAll('#', '');
+//   String hexCode = "FF$code";
+//   return Color(int.parse("0x$hexCode"));
+// }
+
+  // String colorToHexCode(Color colorCode) {
+  //   return colorCode.toString().replaceAll('Color(0xff', '#').replaceAll(')', '');
+  // }
 }
