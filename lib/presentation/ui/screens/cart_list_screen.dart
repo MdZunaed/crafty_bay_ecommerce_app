@@ -1,5 +1,6 @@
 import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/cart_list_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/checkout_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
 import 'package:crafty_bay/presentation/ui/widgets/cart_item_card.dart';
 import 'package:crafty_bay/presentation/ui/widgets/circular_indicator.dart';
@@ -87,7 +88,9 @@ class _CartScreenState extends State<CartScreen> {
             ],
           ),
           FilledButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => const CheckoutScreen());
+            },
             child: const Text("Checkout"),
           )
         ],

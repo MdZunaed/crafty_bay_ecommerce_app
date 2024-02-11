@@ -8,6 +8,7 @@ import 'package:crafty_bay/presentation/state_holders/popular_product_controller
 import 'package:crafty_bay/presentation/state_holders/special_product_controller.dart';
 import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/product_list_screen.dart';
+import 'package:crafty_bay/presentation/ui/screens/profile_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/assets_path.dart';
 import 'package:crafty_bay/presentation/ui/widgets/home_banner_slider.dart';
 import 'package:crafty_bay/presentation/ui/widgets/circular_indicator.dart';
@@ -129,8 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
         separatorBuilder: (c, i) {
           return const SizedBox(width: 10);
         },
-        itemBuilder: (c, i) {
-          return ProductItemCard(product: productList[i]);
+        itemBuilder: (context, index) {
+          return ProductItemCard(key: UniqueKey(), product: productList[index]);
         },
       ),
     );
@@ -141,12 +142,19 @@ class _HomeScreenState extends State<HomeScreen> {
       title: Image.asset(AssetsPath.navLogo),
       actions: [
         CircleIconButton(icon: Icons.notifications_active_outlined, onTap: () {}),
-        CircleIconButton(icon: Icons.call_outlined, onTap: () {}),
+        //CircleIconButton(icon: Icons.call_outlined, onTap: () {}),
         CircleIconButton(
-          icon: Icons.logout,
-          onTap: () async {
-            await AuthController.clearAuthData();
-            Get.offAll(() => const VerifyEmailScreen());
+          icon: Icons.person_outline,
+          // onTap: () async {
+          //   await AuthController.clearAuthData();
+          //   Get.offAll(() => const VerifyEmailScreen());
+          // },
+          onTap: () {
+            if (AuthController.token != null) {
+              Get.to(const ProfileScreen());
+            } else {
+              Get.to(const VerifyEmailScreen());
+            }
           },
         ),
       ],

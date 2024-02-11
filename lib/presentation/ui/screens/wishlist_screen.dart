@@ -1,6 +1,5 @@
 import 'package:crafty_bay/presentation/state_holders/remove_wishlist_controller.dart';
 import 'package:crafty_bay/presentation/state_holders/wishlist_controller.dart';
-import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/app_colors.dart';
 import 'package:crafty_bay/presentation/ui/utility/get_snackbar.dart';
 import 'package:crafty_bay/presentation/ui/widgets/product_item_card.dart';
@@ -67,56 +66,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                 itemBuilder: (context, index) {
                   return FittedBox(
                     child: ProductItemCard(
+                      key: UniqueKey(),
                       product: controller.wishlistModel.wishlistData![index].product!,
+                      onTapFavourite: () {},
                       onTap: () {
-                        Get.defaultDialog(
-                          barrierDismissible: false,
-                          title: "Select your option",
-                          cancel: FilledButton(
-                              child: Text("Cancel"),
-                              onPressed: () {
-                                Get.back();
-                              }),
-                          content: Column(
-                            children: [
-                              Card(
-                                clipBehavior: Clip.antiAlias,
-                                child: ListTile(
-                                  title: Text("View Product"),
-                                  trailing: Icon(Icons.arrow_forward_ios),
-                                  onTap: () {
-                                    Get.back();
-                                    Get.to(ProductDetailsScreen(
-                                        productId:
-                                            controller.wishlistModel.wishlistData?[index].product?.id ?? 0));
-                                  },
-                                ),
-                              ),
-                              GetBuilder<RemoveWishlistController>(
-                                builder: (removeWishlistController) {
-                                  if (removeWishlistController.inProgress) {
-                                    return const CupertinoActivityIndicator(color: AppColors.primaryColor);
-                                  }
-                                  return Card(
-                                    clipBehavior: Clip.antiAlias,
-                                    child: ListTile(
-                                      title: Text("Remove from wishlist"),
-                                      trailing: Icon(Icons.delete, color: Colors.red),
-                                      onTap: () async {
-                                        final response = await removeWishlistController.removeFromWishlist(
-                                            controller.wishlistModel.wishlistData![index].productId ?? 0);
-                                        if (response) {
-                                          Get.back();
-                                          UiHelper.showSnackBar("Success", "Product removed from Wishlist");
-                                        }
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        );
+                        viewOrDeleteDialog(controller, index);
                       },
                     ),
                   );
@@ -125,6 +79,64 @@ class _WishlistScreenState extends State<WishlistScreen> {
             ),
           );
         }),
+      ),
+    );
+  }
+
+  Future<dynamic> viewOrDeleteDialog(WishlistController controller, int index) {
+    return Get.defaultDialog(
+      barrierDismissible: false,
+      title: "Select your option",
+      cancel: FilledButton(
+          child: Text("Cancel"),
+          onPressed: () {
+            Get.back();
+          }),
+      content: Column(
+        children: [
+          viewProductCard(controller, index),
+          removeProductCard(controller, index),
+        ],
+      ),
+    );
+  }
+
+  GetBuilder<RemoveWishlistController> removeProductCard(WishlistController controller, int index) {
+    return GetBuilder<RemoveWishlistController>(
+      builder: (removeWishlistController) {
+        if (removeWishlistController.inProgress) {
+          return const CupertinoActivityIndicator(color: AppColors.primaryColor);
+        }
+        return Card(
+          clipBehavior: Clip.antiAlias,
+          child: ListTile(
+            title: Text("Remove from wishlist"),
+            trailing: Icon(Icons.delete, color: Colors.red),
+            onTap: () async {
+              final response = await removeWishlistController
+                  .removeFromWishlist(controller.wishlistModel.wishlistData![index].productId ?? 0);
+              if (response) {
+                Get.back();
+                UiHelper.showSnackBar("Success", "Product removed from Wishlist");
+              }
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Card viewProductCard(WishlistController controller, int index) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: ListTile(
+        title: Text("View Product"),
+        trailing: Icon(Icons.arrow_forward_ios),
+        onTap: () {
+          Get.back();
+          Get.to(ProductDetailsScreen(
+              productId: controller.wishlistModel.wishlistData?[index].product?.id ?? 0));
+        },
       ),
     );
   }

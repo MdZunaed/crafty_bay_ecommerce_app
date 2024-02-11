@@ -13,8 +13,12 @@ class WishlistController extends GetxController {
 
   String get errorMessage => _errorMessage;
   WishlistModel _wishlistModel = WishlistModel();
-
   WishlistModel get wishlistModel => _wishlistModel;
+  // List<int> _wishProductIdList = [];
+  // List<int> get wishProductIdList => _wishProductIdList;
+
+  // RxBool _existInWishlist = false.obs;
+  // RxBool get existInWishlist => _existInWishlist;
 
   Future<bool> getWishlist() async {
     bool isSuccess = false;
@@ -25,6 +29,9 @@ class WishlistController extends GetxController {
     if (response.isSuccess) {
       _wishlistModel = WishlistModel.fromJson(response.responseData);
       isSuccess = true;
+      // for (WishlistData item in _wishlistModel.wishlistData ?? []) {
+      //   _wishProductIdList.add(item.product!.id!);
+      // }
     } else {
       _errorMessage = response.errorMessage;
     }
@@ -32,4 +39,17 @@ class WishlistController extends GetxController {
     update();
     return isSuccess;
   }
+
+  // bool checkIfExistInWishlist(int productId) {
+  //   if (_wishProductIdList.contains(productId)) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+  //
+  // void removeProductIdFromWishlist(int productId) {
+  //   _wishProductIdList.remove(productId);
+  //   checkIfExistInWishlist(productId);
+  // }
 }

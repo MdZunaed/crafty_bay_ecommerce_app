@@ -48,7 +48,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               const AppLogo(width: 100),
               const SizedBox(height: 10),
               Text("Enter OTP Code", style: Theme.of(context).textTheme.titleLarge),
-              Text("A 6 digit OTP code has been sent", style: Theme.of(context).textTheme.bodySmall),
+              Text("A 6 digit OTP code has been sent to", style: Theme.of(context).textTheme.bodySmall),
+              Text("${widget.email}", style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 20),
               PinCodeTextField(
                 controller: otpTEController,

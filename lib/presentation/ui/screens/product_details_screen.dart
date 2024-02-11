@@ -154,7 +154,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           child: const Padding(
             padding: EdgeInsets.all(3),
             child: Icon(
-              Icons.favorite_outline,
+              Icons.favorite,
               size: 14,
               color: Colors.white,
             ),

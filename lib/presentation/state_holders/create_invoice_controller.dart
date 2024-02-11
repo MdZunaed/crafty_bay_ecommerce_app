@@ -12,19 +12,18 @@ class CreateInvoiceController extends GetxController {
   String _errorMessage = "";
 
   String get errorMessage => _errorMessage;
-  PaymentMethodListModel _paymentMetodListModel = PaymentMethodListModel();
+  PaymentMethodListModel _paymentMethodListModel = PaymentMethodListModel();
 
-  PaymentMethodListModel get paymentMethodListModel => _paymentMetodListModel;
+  PaymentMethodListModel get paymentMethodListModel => _paymentMethodListModel;
 
-  RxDouble _totalPrice = 0.0.obs;
-  RxDouble get totalPrice => _totalPrice;
-  Future<bool> getCartList() async {
+  Future<bool> createInvoice() async {
     bool isSuccess = false;
     _inProgress = true;
     update();
     final ResponseData response = await NetworkCaller().getRequest(Urls.createInvoice);
 
     if (response.isSuccess) {
+      _paymentMethodListModel = PaymentMethodListModel.fromJson(response.responseData);
       isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;
