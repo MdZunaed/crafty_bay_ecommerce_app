@@ -19,5 +19,6 @@ class Urls {
   static removeWishlist(productId) => '$_baseUrl/RemoveWishList/$productId';
   static reviewList(int productId) => '$_baseUrl/ListReviewByProduct/$productId';
   static const addNewReview = '$_baseUrl/CreateProductReview';
+  static const invoiceList = '$_baseUrl/InvoiceList';
   static const createInvoice = '$_baseUrl/InvoiceCreate';
 }

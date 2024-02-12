@@ -40,6 +40,7 @@ class VerifyOtpController extends GetxController {
       return true;
     } else {
       _errorMessage = response.errorMessage;
+      _inProgress = false;
       update();
       return false;
     }

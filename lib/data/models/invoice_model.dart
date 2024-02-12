@@ -43,22 +43,4 @@ class InvoiceModel {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['total'] = this.total;
-    data['vat'] = this.vat;
-    data['payable'] = this.payable;
-    data['cus_details'] = this.cusDetails;
-    data['ship_details'] = this.shipDetails;
-    data['tran_id'] = this.tranId;
-    data['val_id'] = this.valId;
-    data['delivery_status'] = this.deliveryStatus;
-    data['payment_status'] = this.paymentStatus;
-    data['user_id'] = this.userId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
 }

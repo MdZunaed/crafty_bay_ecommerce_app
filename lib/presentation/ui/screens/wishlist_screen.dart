@@ -133,7 +133,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
         title: Text("View Product"),
         trailing: Icon(Icons.arrow_forward_ios),
         onTap: () {
-          Get.back();
+          Get.back(closeOverlays: true);
           Get.to(ProductDetailsScreen(
               productId: controller.wishlistModel.wishlistData?[index].product?.id ?? 0));
         },

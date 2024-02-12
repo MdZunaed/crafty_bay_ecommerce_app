@@ -1,7 +1,10 @@
 import 'package:crafty_bay/data/models/profile.dart';
 import 'package:crafty_bay/presentation/state_holders/auth_controller.dart';
+import 'package:crafty_bay/presentation/ui/screens/invoice_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'auth/verify_email_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -33,9 +36,22 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            optionCard("Invoice List", Icons.abc, () {}),
+            optionCard("Invoice List", Icons.abc, () {
+              Get.to(InvoiceListScreen());
+            }),
             optionCard("Logout", Icons.logout, () {
-              Get.defaultDialog(title: "Warning");
+              Get.defaultDialog(
+                title: "Warning",
+                middleText: "Are you sure to logout?",
+                onConfirm: () async {
+                  await AuthController.clearAuthData();
+                  Get.offAll(() => const VerifyEmailScreen());
+                },
+                onCancel: () {
+                  //Get.back(closeOverlays: true);
+                  Get.to(() => ProfileScreen());
+                },
+              );
             }, Colors.red),
           ],
         ),

@@ -56,7 +56,8 @@ class _CartScreenState extends State<CartScreen> {
                     itemCount: controller.cartListModel.cartList?.length ?? 0,
                     separatorBuilder: (c, i) => const SizedBox(height: 5),
                     itemBuilder: (context, index) {
-                      return CartItemCard(cartModel: controller.cartListModel.cartList![index]);
+                      return CartItemCard(
+                          key: ValueKey(index), cartModel: controller.cartListModel.cartList![index]);
                     },
                   ),
                 ),

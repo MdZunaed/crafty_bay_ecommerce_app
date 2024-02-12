@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return const SizedBox(width: 10);
         },
         itemBuilder: (context, index) {
-          return ProductItemCard(key: UniqueKey(), product: productList[index]);
+          return ProductItemCard(key: ValueKey(index), product: productList[index]);
         },
       ),
     );
@@ -151,9 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
           // },
           onTap: () {
             if (AuthController.token != null) {
-              Get.to(const ProfileScreen());
+              Get.to(() => const ProfileScreen());
             } else {
-              Get.to(const VerifyEmailScreen());
+              Get.to(() => const VerifyEmailScreen());
             }
           },
         ),
