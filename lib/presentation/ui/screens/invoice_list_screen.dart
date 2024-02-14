@@ -20,15 +20,15 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Invoice List")),
+      appBar: AppBar(title: const Text("Invoice List")),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
         child: GetBuilder<InvoiceListController>(
           builder: (controller) {
             if (controller.inProgress) {
               return const CenterProgressIndicator();
             } else if (controller.invoiceList.isEmpty) {
-              return Center(child: Text("No Invoice Found"));
+              return const Center(child: Text("No Invoice Found"));
             }
             return ListView.separated(
               itemCount: controller.invoiceList.length,
@@ -44,7 +44,8 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
                       Text("Delivery-status: ${controller.invoiceList[index].deliveryStatus}"),
                     ],
                   ),
-                  trailing: Text("৳${controller.invoiceList[index].payable}", style: TextStyle(fontSize: 15)),
+                  trailing:
+                      Text("৳${controller.invoiceList[index].payable}", style: const TextStyle(fontSize: 15)),
                 ));
               },
             );

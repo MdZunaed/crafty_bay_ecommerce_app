@@ -10,12 +10,13 @@ import 'package:crafty_bay/presentation/ui/screens/auth/verify_email_screen.dart
 import 'package:crafty_bay/presentation/ui/screens/product_list_screen.dart';
 import 'package:crafty_bay/presentation/ui/screens/profile_screen.dart';
 import 'package:crafty_bay/presentation/ui/utility/assets_path.dart';
-import 'package:crafty_bay/presentation/ui/widgets/home_banner_slider.dart';
 import 'package:crafty_bay/presentation/ui/widgets/circular_indicator.dart';
 import 'package:crafty_bay/presentation/ui/widgets/home/circle_icon_button.dart';
+import 'package:crafty_bay/presentation/ui/widgets/home_banner_slider.dart';
 import 'package:crafty_bay/presentation/ui/widgets/product_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../widgets/category_item.dart';
 import '../widgets/home/section_title.dart';
 
