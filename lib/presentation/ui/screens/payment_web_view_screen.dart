@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentWebViewScreen extends StatefulWidget {
@@ -26,7 +27,20 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
+            if (request.url.endsWith('=success')) {
+              Get.back();
+              Get.defaultDialog(
+                  title: "Success!", middleText: "Your order confirmed", onConfirm: () => Get.back());
+              return NavigationDecision.prevent;
+            } else if (request.url.endsWith('=Failed')) {
+              Get.back();
+              Get.defaultDialog(
+                  title: "Failed!", middleText: "Something went wrong", onConfirm: () => Get.back());
+              return NavigationDecision.prevent;
+            } else if (request.url.endsWith('=1')) {
+              Get.back();
+              Get.defaultDialog(
+                  title: "Success with risk!", middleText: "Order confirmed", onConfirm: () => Get.back());
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
