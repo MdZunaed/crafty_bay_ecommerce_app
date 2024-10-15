@@ -52,6 +52,7 @@ class AuthController extends GetxController {
   }
 
   static Future<void> goToLogin() async {
+    //Get.find<BottomNavController>().backToHome();
     Get.to(() => const VerifyEmailScreen());
   }
 }

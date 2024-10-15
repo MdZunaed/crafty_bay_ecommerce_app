@@ -42,30 +42,34 @@ class _CartScreenState extends State<CartScreen> {
                 },
                 icon: const Icon(Icons.arrow_back_ios)),
             title: const Text("Cart")),
-        body: GetBuilder<CartListController>(
-          builder: (controller) {
-            if (controller.inProgress == true) {
-              return const CenterProgressIndicator();
-            } else if (controller.cartListModel.cartList?.isEmpty ?? true) {
-              return const Center(child: Text("No item found"));
-            }
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: controller.cartListModel.cartList?.length ?? 0,
-                    separatorBuilder: (c, i) => const SizedBox(height: 5),
-                    itemBuilder: (context, index) {
-                      return CartItemCard(
-                          key: ValueKey(index), cartModel: controller.cartListModel.cartList![index]);
-                    },
-                  ),
-                ),
-                checkoutContainer(controller.totalPrice),
-              ],
-            );
-          },
-        ),
+        body: Get.find<AuthController>().isTokenNotNull
+            ? GetBuilder<CartListController>(
+                builder: (controller) {
+                  if (controller.inProgress == true) {
+                    return const CenterProgressIndicator();
+                  } else if (controller.cartListModel.cartList?.isEmpty ?? true) {
+                    return const Center(child: Text("No item found"));
+                  }
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          itemCount: controller.cartListModel.cartList?.length ?? 0,
+                          separatorBuilder: (c, i) => const SizedBox(height: 5),
+                          itemBuilder: (context, index) {
+                            return CartItemCard(
+                                key: ValueKey(index), cartModel: controller.cartListModel.cartList![index]);
+                          },
+                        ),
+                      ),
+                      checkoutContainer(controller.totalPrice),
+                    ],
+                  );
+                },
+              )
+            : const Center(
+                child: Text("Please Login to see your cart products"),
+              ),
       ),
     );
   }

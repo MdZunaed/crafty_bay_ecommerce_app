@@ -31,7 +31,10 @@ class _CartItemCardState extends State<CartItemCard> {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Expanded(flex: 1, child: Image.network(widget.cartModel.product?.image ?? '', fit: BoxFit.cover)),
+            Expanded(
+                flex: 1,
+                child: Image.network(widget.cartModel.product?.image ?? '',
+                    fit: BoxFit.cover)),
             const SizedBox(width: 8),
             Expanded(
               flex: 3,
@@ -49,25 +52,28 @@ class _CartItemCardState extends State<CartItemCard> {
                               widget.cartModel.product?.title ?? "Product Name",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(fontSize: 16),
                             ),
                             Row(
                               children: [
                                 Text(
                                   "Color: ${widget.cartModel.color ?? "color"}",
-                                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.black54),
                                 ),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
                                 Text(
                                   "Size: ${widget.cartModel.size ?? "size"}",
-                                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.black54),
                                 ),
                               ],
                             ),
                           ],
                         ),
                       ),
-                      GetBuilder<DeleteCartItemController>(builder: (controller) {
+                      GetBuilder<DeleteCartItemController>(
+                          builder: (controller) {
                         if (controller.inProgress) {
                           return const CupertinoActivityIndicator();
                         }
@@ -79,13 +85,15 @@ class _CartItemCardState extends State<CartItemCard> {
                             surfaceColor: Colors.red,
                             shadowColor: Colors.transparent,
                             onTap: () async {
-                              final response =
-                                  await controller.deleteCartItem(widget.cartModel.productId ?? 0);
+                              final response = await controller.deleteCartItem(
+                                  widget.cartModel.productId ?? 0);
                               if (response) {
                                 Get.find<CartListController>().getCartList();
-                                UiHelper.showSnackBar("Success", "Product deleted from your cart");
+                                UiHelper.showSnackBar("Success",
+                                    "Product deleted from your cart");
                               } else {
-                                UiHelper.showSnackBar("Failed", "Something went wrong");
+                                UiHelper.showSnackBar(
+                                    "Failed", "Something went wrong");
                               }
                             });
                       }),
@@ -97,13 +105,15 @@ class _CartItemCardState extends State<CartItemCard> {
                     children: [
                       Text(
                         "৳${widget.cartModel.product?.price ?? "0"}",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.primaryColor),
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primaryColor),
                       ),
                       ItemCounter(
                         id: widget.cartModel.id,
                         //qty: int.tryParse(widget.cartModel.qty ?? '') ?? 0,
-                        qty: noOfItem.value,
+                        //qty: noOfItem.value,
                         initialValue: noOfItem,
                         //initialValue: ValueNotifier(int.tryParse(widget.cartModel.qty ?? '') ?? 0),
                       ),

@@ -7,9 +7,14 @@ import '../utility/app_colors.dart';
 
 class ItemCounter extends StatefulWidget {
   final int? id;
-  final int? qty;
+  //final int? qty;
   final ValueNotifier<int> initialValue;
-  const ItemCounter({super.key, required this.initialValue, this.id, this.qty});
+  const ItemCounter({
+    super.key,
+    required this.initialValue,
+    this.id,
+    //this.qty
+  });
 
   @override
   State<ItemCounter> createState() => _ItemCounterState();
@@ -30,7 +35,8 @@ class _ItemCounterState extends State<ItemCounter> {
             if (widget.initialValue.value > 1) {
               widget.initialValue.value--;
               //Get.find<CartListController>().updateQuantity(widget.id ?? 0, widget.qty ?? 0);
-              Get.find<CartListController>().updateQuantity(widget.id ?? 0, widget.initialValue.value);
+              Get.find<CartListController>()
+                  .updateQuantity(widget.id ?? 0, widget.initialValue.value);
             }
           },
         ),
@@ -45,7 +51,8 @@ class _ItemCounterState extends State<ItemCounter> {
           onTap: () {
             widget.initialValue.value++;
             //Get.find<CartListController>().updateQuantity(widget.id ?? 0, widget.qty ?? 0);
-            Get.find<CartListController>().updateQuantity(widget.id ?? 0, widget.initialValue.value);
+            Get.find<CartListController>()
+                .updateQuantity(widget.id ?? 0, widget.initialValue.value);
           },
         ),
       ],

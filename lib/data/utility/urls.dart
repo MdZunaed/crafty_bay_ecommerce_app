@@ -1,5 +1,6 @@
 class Urls {
-  static const _baseUrl = 'http://ecom-api.teamrabbil.com/api';
+  //static const _baseUrl = 'http://ecom-api.teamrabbil.com/api';
+  static const _baseUrl = 'https://ecommerce-api.codesilicon.com/api';
   static String sendEmailOtp(email) => '$_baseUrl/UserLogin/$email';
   static String verifyOtp(email, otp) => '$_baseUrl/VerifyLogin/$email/$otp';
   static const readProfile = '$_baseUrl/ReadProfile';
